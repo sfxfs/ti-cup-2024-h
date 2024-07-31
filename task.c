@@ -145,9 +145,9 @@ void track_line(float base_speed, bool only_turn_right, float enter_yaw)
         switch (temp_sensor_data)
         {
             /*没有黑线*/
-            case 0x00:
-                feedback = 0;
-                break;
+//            case 0x00:
+//                feedback = 0;
+//                break;
             /*中心*/
             case 0x18:
                 feedback = 0;
@@ -201,6 +201,8 @@ void track_line(float base_speed, bool only_turn_right, float enter_yaw)
         }
         if (only_turn_right == true && feedback < 0)
             feedback = 0;
+        if (only_turn_right == false && feedback > 0)
+            feedback = 0;
         pid_output = PIDController_Update(&line_pid, 0, feedback) / 100.0f;
         print_pid_out = pid_output;////
         motor_A_C0_L_set_speed(base_speed - pid_output);
@@ -212,7 +214,18 @@ void track_line(float base_speed, bool only_turn_right, float enter_yaw)
 
 void task_test()
 {
-    task4();
+    for (int i = 0; i <= 100; i++)
+    {
+        motor_A_C0_L_set_speed(0.01*i);
+        delay_ms(20);
+    }
+    motor_A_C0_L_set_speed(0);
+    for (int i = 0; i <= 100; i++)
+    {
+        motor_B_C1_R_set_speed(0.01*i);
+        delay_ms(20);
+    }
+    motor_B_C1_R_set_speed(0);
 }
 
 #define TASK1_BASE_SPEED 0.6f
@@ -298,7 +311,7 @@ void task3()
     light_up_sound_on(100);
 
     // go to D slash
-    go_slash_no_line(0.7f, g_jy901_yaw + 42.0f, true); // turn left a bit
+    go_slash_no_line(0.7f, g_jy901_yaw + 41.0f, true); // turn left a bit
 
     // get D
     motor_A_C0_L_set_speed(0.4);
@@ -335,7 +348,7 @@ void task4()
     light_up_sound_on(100);
 
     // go to D slash
-    go_slash_no_line(0.7f, g_jy901_yaw + 42.0f, true); // turn left a bit
+    go_slash_no_line(0.7f, g_jy901_yaw + 41.0f, true); // turn left a bit
 
     // get D
     motor_A_C0_L_set_speed(0.4);
@@ -353,7 +366,7 @@ void task4()
     // round 2---------------------------------------------------------------
 
     // go to C slash
-    go_slash_no_line(0.7f, g_jy901_yaw - 42.0f, false); // turn right a bit
+    go_slash_no_line(0.7f, g_jy901_yaw - 41.0f, false); // turn right a bit
 
     // get C
     motor_A_C0_L_set_speed(0.4);
@@ -369,7 +382,7 @@ void task4()
     light_up_sound_on(100);
 
     // go to D slash
-    go_slash_no_line(0.7f, g_jy901_yaw + 42.0f, true); // turn left a bit
+    go_slash_no_line(0.7f, g_jy901_yaw + 41.0f, true); // turn left a bit
 
     // get D
     motor_A_C0_L_set_speed(0.4);
@@ -387,7 +400,7 @@ void task4()
     // round 3---------------------------------------------------------------
 
     // go to C slash
-    go_slash_no_line(0.7f, g_jy901_yaw - 42.0f, false); // turn right a bit
+    go_slash_no_line(0.7f, g_jy901_yaw - 41.0f, false); // turn right a bit
 
     // get C
     motor_A_C0_L_set_speed(0.4);
@@ -403,7 +416,7 @@ void task4()
     light_up_sound_on(100);
 
     // go to D slash
-    go_slash_no_line(0.7f, g_jy901_yaw + 42.0f, true); // turn left a bit
+    go_slash_no_line(0.7f, g_jy901_yaw + 41.0f, true); // turn left a bit
 
     // get D
     motor_A_C0_L_set_speed(0.4);
@@ -421,7 +434,7 @@ void task4()
     // round 4---------------------------------------------------------------
 
     // go to C slash
-    go_slash_no_line(0.7f, g_jy901_yaw - 42.0f, false); // turn right a bit
+    go_slash_no_line(0.7f, g_jy901_yaw - 41.0f, false); // turn right a bit
 
     // get C
     motor_A_C0_L_set_speed(0.4);
@@ -437,7 +450,7 @@ void task4()
     light_up_sound_on(100);
 
     // go to D slash
-    go_slash_no_line(0.7f, g_jy901_yaw + 42.0f, true); // turn left a bit
+    go_slash_no_line(0.7f, g_jy901_yaw + 41.0f, true); // turn left a bit
 
     // get D
     motor_A_C0_L_set_speed(0.4);
