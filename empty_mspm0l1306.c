@@ -44,7 +44,7 @@ int main(void)
     SYSCFG_DL_init();
 
     jy901_int_enable();
-    encoder_int_enable();
+//    encoder_int_enable();
     sensor_init();
 
     delay_ms(1100); // wait for jy901 boot up
