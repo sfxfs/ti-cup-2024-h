@@ -283,8 +283,11 @@ void task2()
 
 void task3()
 {
+    float p_initial_yaw = g_jy901_yaw;
+    float n_initial_yaw = p_initial_yaw - 104.0f;
+
     // go to C slash
-    go_slash_no_line(0.7f, g_jy901_yaw, false);
+    go_slash_no_line(0.7f, p_initial_yaw, false);
 
     // get C
     light_up_sound_on(100, 0.4);
@@ -296,7 +299,7 @@ void task3()
     light_up_sound_on(100, 0.4);
 
     // go to D slash
-    go_slash_no_line(0.7f, g_jy901_yaw + 41.0f, true); // turn left a bit
+    go_slash_no_line(0.7f, n_initial_yaw, true); // turn left a bit
 
     // get D
     light_up_sound_on(100, 0.4);
@@ -311,13 +314,16 @@ void task3()
 }
 
 #define TASK4_LINE_BASE_SPEED 0.4f
-#define TASK4_NO_LINE_BASE_SPEED 0.7f
+#define TASK4_NO_LINE_BASE_SPEED 0.6f
 #define TASK4_SLOW_BASE_SPEED 0.35f
 
 void task4()
 {
+    float p_initial_yaw = g_jy901_yaw;
+    float n_initial_yaw = p_initial_yaw - 104.0f;
+
     // go to C slash
-    go_slash_no_line(TASK4_NO_LINE_BASE_SPEED, g_jy901_yaw, false);
+    go_slash_no_line(TASK4_NO_LINE_BASE_SPEED, p_initial_yaw, false);
 
     // get C
     light_up_sound_on(100, TASK4_SLOW_BASE_SPEED);
@@ -329,7 +335,7 @@ void task4()
     light_up_sound_on(100, TASK4_SLOW_BASE_SPEED);
 
     // go to D slash
-    go_slash_no_line(TASK4_NO_LINE_BASE_SPEED, g_jy901_yaw + 40.5f, true); // turn left a bit
+    go_slash_no_line(TASK4_NO_LINE_BASE_SPEED, n_initial_yaw, true); // turn left a bit
 
     // get D
     light_up_sound_on(100, TASK4_SLOW_BASE_SPEED);
@@ -343,7 +349,7 @@ void task4()
     // round 2---------------------------------------------------------------
 
     // go to C slash
-    go_slash_no_line(TASK4_NO_LINE_BASE_SPEED, g_jy901_yaw - 41.0f, false); // turn right a bit
+    go_slash_no_line(TASK4_NO_LINE_BASE_SPEED, p_initial_yaw, false); // turn right a bit
 
     // get C
     light_up_sound_on(100, TASK4_SLOW_BASE_SPEED);
@@ -355,7 +361,7 @@ void task4()
     light_up_sound_on(100, TASK4_SLOW_BASE_SPEED);
 
     // go to D slash
-    go_slash_no_line(TASK4_NO_LINE_BASE_SPEED, g_jy901_yaw + 41.0f, true); // turn left a bit
+    go_slash_no_line(TASK4_NO_LINE_BASE_SPEED, n_initial_yaw, true); // turn left a bit
 
     // get D
     light_up_sound_on(100, TASK4_SLOW_BASE_SPEED);
@@ -369,7 +375,7 @@ void task4()
     // round 3---------------------------------------------------------------
 
     // go to C slash
-    go_slash_no_line(TASK4_NO_LINE_BASE_SPEED, g_jy901_yaw - 41.0f, false); // turn right a bit
+    go_slash_no_line(TASK4_NO_LINE_BASE_SPEED, p_initial_yaw, false); // turn right a bit
 
     // get C
     light_up_sound_on(100, TASK4_SLOW_BASE_SPEED);
@@ -381,7 +387,7 @@ void task4()
     light_up_sound_on(100, TASK4_SLOW_BASE_SPEED);
 
     // go to D slash
-    go_slash_no_line(TASK4_NO_LINE_BASE_SPEED, g_jy901_yaw + 40.5f, true); // turn left a bit
+    go_slash_no_line(TASK4_NO_LINE_BASE_SPEED, n_initial_yaw, true); // turn left a bit
 
     // get D
     light_up_sound_on(100, TASK4_SLOW_BASE_SPEED);
@@ -395,7 +401,7 @@ void task4()
     // round 4---------------------------------------------------------------
 
     // go to C slash
-    go_slash_no_line(TASK4_NO_LINE_BASE_SPEED, g_jy901_yaw - 41.0f, false); // turn right a bit
+    go_slash_no_line(TASK4_NO_LINE_BASE_SPEED, p_initial_yaw, false); // turn right a bit
 
     // get C
     light_up_sound_on(100, TASK4_SLOW_BASE_SPEED);
@@ -407,7 +413,7 @@ void task4()
     light_up_sound_on(100, TASK4_SLOW_BASE_SPEED);
 
     // go to D slash
-    go_slash_no_line(TASK4_NO_LINE_BASE_SPEED, g_jy901_yaw + 41.0f, true); // turn left a bit
+    go_slash_no_line(TASK4_NO_LINE_BASE_SPEED, n_initial_yaw, true); // turn left a bit
 
     // get D
     light_up_sound_on(100, TASK4_SLOW_BASE_SPEED);
