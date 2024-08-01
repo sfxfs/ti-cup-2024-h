@@ -60,6 +60,9 @@ static PIDController line_pid = {
                          .en = 1,
 };
 
+float p_initial_yaw, n_initial_yaw;
+int n_update;
+
 static void light_up_sound_on(int ms, float speed)
 {
     motor_A_C0_L_set_speed(speed);
@@ -196,9 +199,9 @@ void track_line(float base_speed, bool only_turn_right, float enter_yaw)
                 break;
         }
         if (only_turn_right == true && feedback < 0)
-            feedback = feedback * 0.5f;
+            feedback = feedback * 0.2f;
         if (only_turn_right == false && feedback > 0)
-            feedback = feedback * 0.5f;
+            feedback = feedback * 0.2f;
         pid_output = PIDController_Update(&line_pid, 0, feedback) / 100.0f;
         motor_A_C0_L_set_speed(base_speed - pid_output);
         motor_B_C1_R_set_speed(base_speed + pid_output);
@@ -209,18 +212,37 @@ void track_line(float base_speed, bool only_turn_right, float enter_yaw)
 
 void task_test()
 {
-    for (int i = 0; i <= 100; i++)
-    {
-        motor_A_C0_L_set_speed(0.01*i);
-        delay_ms(20);
-    }
-    motor_A_C0_L_set_speed(0);
-    for (int i = 0; i <= 100; i++)
-    {
-        motor_B_C1_R_set_speed(0.01*i);
-        delay_ms(20);
-    }
-    motor_B_C1_R_set_speed(0);
+    n_initial_yaw = g_jy901_yaw;
+    n_update = 1;
+    delay_ms(800);
+    DL_GPIO_setPins(GPIO_GRP_BORAD_PORT, GPIO_GRP_BORAD_PIN_LED_PIN);
+//    for (int i = 0; i <= 100; i++)
+//    {
+//        motor_A_C0_L_set_speed(0.01*i);
+//        delay_ms(20);
+//    }
+//    motor_A_C0_L_set_speed(0);
+//    delay_ms(100);
+//    for (int i = 0; i <= 100; i++)
+//    {
+//        motor_A_C0_L_set_speed(-0.01*i);
+//        delay_ms(20);
+//    }
+//    motor_A_C0_L_set_speed(0);
+//    delay_ms(100);
+//    for (int i = 0; i <= 100; i++)
+//    {
+//        motor_B_C1_R_set_speed(0.01*i);
+//        delay_ms(20);
+//    }
+//    motor_B_C1_R_set_speed(0);
+//    delay_ms(100);
+//    for (int i = 0; i <= 100; i++)
+//    {
+//        motor_B_C1_R_set_speed(-0.01*i);
+//        delay_ms(20);
+//    }
+//    motor_B_C1_R_set_speed(0);
 }
 
 #define TASK1_BASE_SPEED 0.6f
@@ -263,6 +285,8 @@ void task2()
     light_up_sound_on(100, TASK2_SLOW_BASE_SPEED);
 
     // go to D
+    if (n_update == 1)
+        go_straight_no_line(TASK2_NO_LINE_BASE_SPEED, n_initial_yaw); // offset
     go_straight_no_line(TASK2_NO_LINE_BASE_SPEED, g_jy901_yaw - 2.5); // offset
 
     // get D
@@ -283,8 +307,9 @@ void task2()
 
 void task3()
 {
-    float p_initial_yaw = g_jy901_yaw;
-    float n_initial_yaw = p_initial_yaw - 104.0f;
+    p_initial_yaw = g_jy901_yaw;
+    if (n_update == 0)
+        n_initial_yaw = p_initial_yaw - 106.0f;
 
     // go to C slash
     go_slash_no_line(0.7f, p_initial_yaw, false);
@@ -319,8 +344,9 @@ void task3()
 
 void task4()
 {
-    float p_initial_yaw = g_jy901_yaw;
-    float n_initial_yaw = p_initial_yaw - 104.0f;
+    p_initial_yaw = g_jy901_yaw;
+    if (n_update == 0)
+        n_initial_yaw = p_initial_yaw - 108.0f;
 
     // go to C slash
     go_slash_no_line(TASK4_NO_LINE_BASE_SPEED, p_initial_yaw, false);
