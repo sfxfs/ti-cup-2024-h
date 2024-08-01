@@ -43,7 +43,7 @@ static PIDController yaw_pid = {
 };
 
 static PIDController line_pid = {
-                         .Kp = 0.6f,
+                         .Kp = 0.6f, // 0.6f
                          .Ki = 0.0f,
                          .Kd = 0.0f,
 
@@ -216,33 +216,6 @@ void task_test()
     n_update = 1;
     delay_ms(800);
     DL_GPIO_setPins(GPIO_GRP_BORAD_PORT, GPIO_GRP_BORAD_PIN_LED_PIN);
-//    for (int i = 0; i <= 100; i++)
-//    {
-//        motor_A_C0_L_set_speed(0.01*i);
-//        delay_ms(20);
-//    }
-//    motor_A_C0_L_set_speed(0);
-//    delay_ms(100);
-//    for (int i = 0; i <= 100; i++)
-//    {
-//        motor_A_C0_L_set_speed(-0.01*i);
-//        delay_ms(20);
-//    }
-//    motor_A_C0_L_set_speed(0);
-//    delay_ms(100);
-//    for (int i = 0; i <= 100; i++)
-//    {
-//        motor_B_C1_R_set_speed(0.01*i);
-//        delay_ms(20);
-//    }
-//    motor_B_C1_R_set_speed(0);
-//    delay_ms(100);
-//    for (int i = 0; i <= 100; i++)
-//    {
-//        motor_B_C1_R_set_speed(-0.01*i);
-//        delay_ms(20);
-//    }
-//    motor_B_C1_R_set_speed(0);
 }
 
 #define TASK1_BASE_SPEED 0.6f
@@ -308,8 +281,7 @@ void task2()
 void task3()
 {
     p_initial_yaw = g_jy901_yaw;
-    if (n_update == 0)
-        n_initial_yaw = p_initial_yaw - 106.0f;
+
 
     // go to C slash
     go_slash_no_line(0.7f, p_initial_yaw, false);
@@ -324,7 +296,9 @@ void task3()
     light_up_sound_on(100, 0.4);
 
     // go to D slash
-    go_slash_no_line(0.7f, n_initial_yaw, true); // turn left a bit
+    if (n_update == 1)
+        go_slash_no_line(0.7f, n_initial_yaw, true);
+    go_slash_no_line(0.7f, g_jy901_yaw + 42.0f, true); // turn left a bit
 
     // get D
     light_up_sound_on(100, 0.4);
@@ -334,19 +308,17 @@ void task3()
 
     // get A
     light_up_sound_on(800, 0);
-
-    for (;;);
 }
 
-#define TASK4_LINE_BASE_SPEED 0.4f
-#define TASK4_NO_LINE_BASE_SPEED 0.6f
+#define TASK4_LINE_BASE_SPEED 0.4f // 0.4
+#define TASK4_NO_LINE_BASE_SPEED 0.6f // 0.6
 #define TASK4_SLOW_BASE_SPEED 0.35f
 
 void task4()
 {
     p_initial_yaw = g_jy901_yaw;
     if (n_update == 0)
-        n_initial_yaw = p_initial_yaw - 108.0f;
+        n_initial_yaw = p_initial_yaw - 107.0f;
 
     // go to C slash
     go_slash_no_line(TASK4_NO_LINE_BASE_SPEED, p_initial_yaw, false);
@@ -453,6 +425,114 @@ void task4()
     for (;;);
 }
 
+void task4_2()
+{
+    // go to C slash
+    go_slash_no_line(TASK4_NO_LINE_BASE_SPEED, g_jy901_yaw, false);
+
+    // get C
+    light_up_sound_on(100, TASK4_SLOW_BASE_SPEED);
+
+    // go to B
+    track_line(TASK4_LINE_BASE_SPEED, false, g_jy901_yaw);
+
+    //get B
+    light_up_sound_on(100, TASK4_SLOW_BASE_SPEED);
+
+    // go to D slash
+    go_slash_no_line(TASK4_NO_LINE_BASE_SPEED, g_jy901_yaw + 40.5f, true); // turn left a bit
+
+    // get D
+    light_up_sound_on(100, TASK4_SLOW_BASE_SPEED);
+
+    // go to A
+    track_line(TASK4_LINE_BASE_SPEED, true, g_jy901_yaw);
+
+    // get A
+    light_up_sound_on(100, TASK4_SLOW_BASE_SPEED);
+
+    // round 2---------------------------------------------------------------
+
+    // go to C slash
+    go_slash_no_line(TASK4_NO_LINE_BASE_SPEED, g_jy901_yaw - 41.0f, false); // turn right a bit
+
+    // get C
+    light_up_sound_on(100, TASK4_SLOW_BASE_SPEED);
+
+    // go to B
+    track_line(TASK4_LINE_BASE_SPEED, false, g_jy901_yaw);
+
+    //get B
+    light_up_sound_on(100, TASK4_SLOW_BASE_SPEED);
+
+    // go to D slash
+    go_slash_no_line(TASK4_NO_LINE_BASE_SPEED, g_jy901_yaw + 41.0f, true); // turn left a bit
+
+    // get D
+    light_up_sound_on(100, TASK4_SLOW_BASE_SPEED);
+
+    // go to A
+    track_line(TASK4_LINE_BASE_SPEED, true, g_jy901_yaw);
+
+    // get A
+    light_up_sound_on(100, TASK4_SLOW_BASE_SPEED);
+
+    // round 3---------------------------------------------------------------
+
+    // go to C slash
+    go_slash_no_line(TASK4_NO_LINE_BASE_SPEED, g_jy901_yaw - 41.0f, false); // turn right a bit
+
+    // get C
+    light_up_sound_on(100, TASK4_SLOW_BASE_SPEED);
+
+    // go to B
+    track_line(TASK4_LINE_BASE_SPEED, false, g_jy901_yaw);
+
+    //get B
+    light_up_sound_on(100, TASK4_SLOW_BASE_SPEED);
+
+    // go to D slash
+    go_slash_no_line(TASK4_NO_LINE_BASE_SPEED, g_jy901_yaw + 40.5f, true); // turn left a bit
+
+    // get D
+    light_up_sound_on(100, TASK4_SLOW_BASE_SPEED);
+
+    // go to A
+    track_line(TASK4_LINE_BASE_SPEED, true, g_jy901_yaw);
+
+    // get A
+    light_up_sound_on(100, TASK4_SLOW_BASE_SPEED);
+
+    // round 4---------------------------------------------------------------
+
+    // go to C slash
+    go_slash_no_line(TASK4_NO_LINE_BASE_SPEED, g_jy901_yaw - 41.0f, false); // turn right a bit
+
+    // get C
+    light_up_sound_on(100, TASK4_SLOW_BASE_SPEED);
+
+    // go to B
+    track_line(TASK4_LINE_BASE_SPEED, false, g_jy901_yaw);
+
+    //get B
+    light_up_sound_on(100, TASK4_SLOW_BASE_SPEED);
+
+    // go to D slash
+    go_slash_no_line(TASK4_NO_LINE_BASE_SPEED, g_jy901_yaw + 41.0f, true); // turn left a bit
+
+    // get D
+    light_up_sound_on(100, TASK4_SLOW_BASE_SPEED);
+
+    // go to A
+    track_line(TASK4_LINE_BASE_SPEED, true, g_jy901_yaw);
+
+    // get A
+    light_up_sound_on(800, 0);
+
+    for (;;);
+}
+
 #undef TASK4_LINE_BASE_SPEED
 #undef TASK4_NO_LINE_BASE_SPEED
 #undef TASK4_SLOW_BASE_SPEED
+

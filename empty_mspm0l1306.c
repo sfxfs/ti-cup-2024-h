@@ -55,7 +55,7 @@ int main(void)
     while (1) {
         if (DL_GPIO_readPins(GPIO_GRP_BORAD_PORT, GPIO_GRP_BORAD_PIN_BUTTON_PIN))
         {
-            delay_ms(200);
+            delay_ms(400);
             if (DL_GPIO_readPins(GPIO_GRP_BORAD_PORT, GPIO_GRP_BORAD_PIN_BUTTON_PIN))
             {
                 DL_GPIO_clearPins(GPIO_GRP_BORAD_PORT, GPIO_GRP_BORAD_PIN_LED_PIN); // led off
@@ -75,6 +75,9 @@ int main(void)
                     break;
                 case 4:
                     task4();
+                    break;
+                case 5:
+                    task4_2();
                     break;
                 default:
                     break;
