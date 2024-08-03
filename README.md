@@ -1,16 +1,5 @@
-## Example Summary
+# 2024 电赛 H 题代码工程
 
-Empty project using DriverLib.
-This example shows a basic empty project using DriverLib with just main file
-and SysConfig initialization.
+此为 CCS 项目，使用 MSPM0L1306，所有题目都已实现，使用 5V 电池供电
 
-### Low-Power Recommendations
-TI recommends to terminate unused pins by setting the corresponding functions to
-GPIO and configure the pins to output low or input with internal
-pullup/pulldown resistor.
-
-SysConfig allows developers to easily configure unused pins by selecting **Board**→**Configure Unused Pins**.
-
-## Example Usage
-
-Compile, load and run the example.
+传感器使用 JY901 和 八路灰度传感器
